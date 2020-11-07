@@ -8,6 +8,8 @@
 Обратите внимание, что у каждого запроса описан *список* и *порядок* полей, которые необходимо извлечь.
 """
 
+import datetime
+
 
 def example():
     """
@@ -26,7 +28,7 @@ def get_all_phone_numbers() -> str:
 
     :return: запрос, выполняющий требования
     """
-    return """"""
+    return 'SELECT FirstName, LastName, Phone FROM customers'
 
 
 def get_all_clients_from_e() -> str:
@@ -36,7 +38,7 @@ def get_all_clients_from_e() -> str:
 
     :return: запрос, выполняющий требования
     """
-    return """"""
+    return """SELECT FirstName, LastName FROM customers WHERE FirstName like 'E%'"""
 
 
 def get_hired_after_2003() -> str:
@@ -46,7 +48,7 @@ def get_hired_after_2003() -> str:
 
     :return: запрос, выполняющий требования
     """
-    return """"""
+    return """SELECT FirstName, LastName, BirthDate, HireDate FROM employees WHERE CAST(strftime('%Y', HireDate) as INT) >= 2003;"""
 
 
 def get_customers_with_job() -> str:
@@ -56,7 +58,7 @@ def get_customers_with_job() -> str:
 
     :return: запрос, выполняющий требования
     """
-    return """"""
+    return """SELECT FirstName, LastName, Company FROM customers WHERE Company NOT NULL"""
 
 
 def get_biggest_album() -> str:
@@ -66,7 +68,18 @@ def get_biggest_album() -> str:
 
     :return: запрос, выполняющий требования
     """
-    return """"""
+    return """SELECT
+	tracks.albumid, 
+	name, 
+	COUNT(*)
+FROM
+	tracks
+INNER JOIN albums ON
+	albums.albumid = tracks.albumid
+GROUP BY
+	tracks.albumid
+ORDER BY count(*) DESC
+LIMIT 1"""
 
 
 def get_success_artists() -> str:
